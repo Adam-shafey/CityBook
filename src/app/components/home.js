@@ -141,37 +141,10 @@ class Home extends React.Component {
                 noWrap
                 className={classes.title}
               >
-                Material-UI + ReactPWA
+                CityBook
               </Typography>
-              <Button color="default" component='a' href="https://github.com/Atyantik/example-pawjs-material-ui">
-                <Typography>
-                  View Source Code
-                </Typography>
-              </Button>
             </Toolbar>
           </AppBar>
-          <Drawer
-            variant="permanent"
-            classes={{
-              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-            }}
-            open={this.state.open}
-          >
-            <div className={classes.toolbarIcon}>
-              <Typography variant="h6">
-                Menu
-              </Typography>
-              <IconButton onClick={this.handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </div>
-            <Divider />
-            <List>{mainListItems}</List>
-            <Divider />
-            <List>{secondaryListItems}</List>
-            <Divider/>
-            <List>{SiteDetails}</List>
-          </Drawer>
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <GridContainer />
