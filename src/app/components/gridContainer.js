@@ -9,18 +9,34 @@ class GridContainer extends Component {
     // Set initial state
 
     this.state = {
-      display: "0"
+      display: 0
     }
+
+    this.switch1 = this.switch1.bind(this);
+    this.switch2 = this.switch2.bind(this);
+
   }
+  switch1(){
+    this.setState({
+      display: 1
+    })
+  }
+
+  switch2(){
+    this.setState({
+      display: 0
+    })
+  }
+
 
   render() {
     const Question = (
       <div>
-        <StaticLayout />
+        <StaticLayout submitCallback={this.switch1}/>
       </div>
     )
     const Recommendations = (
-      <RecommendationLayout />
+      <RecommendationLayout returnCallback={this.switch2}/>
     )
 
     if (this.state.display == 1) {

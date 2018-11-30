@@ -11,39 +11,38 @@ import axios from 'axios';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-const DefaultRecs = [
-    {
-        value: 'Cairo',
-        label: '',
-    },
-    {
-        value: 'Montreal',
-        label: '1',
-    },
-    {
-        value: 'Alexandria',
-        label: '2',
-    },
-    {
-        value: 'Beirut',
-        label: '3',
-    },
-    {
-        value: 'Dakar',
-        label: '4',
-    },
-    {
-        value: 'New_york',
-        label: '5',
-    },
-    {
-        value: 'Los_Angeles',
-        label: '6',
-    },
-    {
-        value: 'London',
-        label: '7',
-    },
+const CityList = [
+    "mexico-city-mexico",
+    "cancun-mexico",
+    "amman-jordan",
+    "ho-chi-minh-city-vietnam",
+    "hong-kong-china",
+    "zhuhai-china",
+    "phuket-thailand",
+    "kuala-lumpur-malaysia",
+    "phnom-penh-cambodia",
+    "chennai-india",
+    "jaipur-india",
+    "agra-india",
+    "delhi-india",
+    "mumbai-india",
+    "shenzhen-china",
+    "washington-dc-united-states",
+    "madison-wi-united-states",
+    "boston-ma-united-states",
+    "dubai-united-arab-emirates",
+    "singapore-singapore",
+    "glasgow-united-kingdom",
+    "edinburgh-united-kingdom",
+    "leuven-belgium",
+    "berlin-germany",
+    "brussels-belgium",
+    "gdansk-poland",
+    "quito-ecuador",
+    "cuenca-ecuador",
+    "guayaquil-ecuador",
+    "pasto-colombia",
+    "cali-colombia"
 ];
 
 class RecommendationLayout extends React.Component {
@@ -57,65 +56,45 @@ class RecommendationLayout extends React.Component {
     constructor(props) {
         super(props);
 
-
-
         this.state = {
-
-            Recommendations: [
-                {
-                    value: 'Cairo',
-                    label: '',
-                },
-                {
-                    value: 'Montreal',
-                    label: '1',
-                },
-                {
-                    value: 'Alexandria',
-                    label: '2',
-                },
-                {
-                    value: 'Beirut',
-                    label: '3',
-                },
-                {
-                    value: 'Dakar',
-                    label: '4',
-                },
-                {
-                    value: 'New_york',
-                    label: '5',
-                },
-                {
-                    value: 'Los_Angeles',
-                    label: '6',
-                },
-                {
-                    value: 'London',
-                    label: '7',
-                },
-            ]
-
         };
 
+        this.return = this.return.bind(this);
         this.onLayoutChange = this.onLayoutChange.bind(this);
         this.onBreakpointChange = this.onBreakpointChange.bind(this);
+        this.Recommendationlist = [];
+        this.PicList = [];
+
+        for (let index = 0; index < 4; index++) {
+            const val= CityList[(Math.floor(Math.random() * (CityList.length-0) + 0))];
+            this.Recommendationlist.push(val)
+        }   
     }
 
     componentDidMount() {
-        axios.get(`http://ec2-18-237-226-219.us-west-2.compute.amazonaws.com:3090/`)
-          .then(res => {
-            const Recommendations = res.data;
-            this.setState({ Recommendations });
-          })
-
-        for (let index = 0; index < this.state.Recommendations.length; index++) {
-            const Recommendations = this.state.Recommendations;
+            for (let index = 0; index < 4; index++) {
+                try {
+                    const temp = this.Recommendationlist[i].split("-");
+                    console.log(this.Recommendationlist[i]);
+                    const tempLink = `https://en.wikipedia.org/api/rest_v1/page/media/${temp[0]}?redirect=false`
+                    axios.get(tempLink).then(res => {
+                        console.log(res);
+                      const pic = res.data.items[0].thumbnail.source;
+                      this.PicList.push(pic);
+                      console.log(this.PicList);
+                    })}
+                catch (error) {
+                
+            }
 
         }
+        console.log(this.state)
+    }
 
-        
-        }
+
+    return(){
+        this.props.returnCallback();
+    }
 
     // We're using the cols coming back from this to calculate where to add new items.
     onBreakpointChange(breakpoint, cols) {
@@ -129,6 +108,19 @@ class RecommendationLayout extends React.Component {
         this.setState({ layout: layout });
     }
     render() {
+        const divStyle = {
+            position: 'absolute',
+            display: 'table',
+            textAlign: 'center'
+        }
+    
+        const divStyle2={
+            display: 'table-cell',
+            verticalAlign: 'bottom'
+        }
+
+        const Recommendationlist = this.Recommendationlist
+        console.log(Recommendationlist)
         return (
             <ResponsiveReactGridLayout
                 className="StaticLayout"
@@ -145,7 +137,7 @@ class RecommendationLayout extends React.Component {
                                 Recommendation 1
                             </Typography>
                             <Typography variant="h6" component="h2">
-                                Tell us about yourself
+                                {Recommendationlist[0]}
                              </Typography>
                         </CardContent>
                     </Card>
@@ -157,7 +149,7 @@ class RecommendationLayout extends React.Component {
                             Recommendation 2
                             </Typography>
                             <Typography variant="h6" component="h2">
-                                What's your ideal day activity?
+                            {Recommendationlist[1]}
                              </Typography>
                         </CardContent>
                     </Card>
@@ -169,7 +161,7 @@ class RecommendationLayout extends React.Component {
                             Recommendation 3 
                             </Typography>
                             <Typography variant="h6" component="h2">
-                                What's your favorite method of transportation?
+                            {Recommendationlist[2]}
                              </Typography>
                         </CardContent>
                     </Card>
@@ -181,71 +173,14 @@ class RecommendationLayout extends React.Component {
                             Recommendation 4
                             </Typography>
                             <Typography variant="h6" component="h2">
-                                Which of the following factors are important to you?
+                            {Recommendationlist[3]}
                              </Typography>
                         </CardContent>
                     </Card>
                 </div>
-                <div key="5" data-grid={{ x: 0, y: 2, w: 1, h: 2, static: true }}>
-                <Card>
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                            Recommendation 5
-                            </Typography>
-                            <Typography variant="h6" component="h2">
-                                Which cities have you been to that you liked?
-                             </Typography>
-                        </CardContent>
-                    </Card>
-                </div>
-                <div key="6" data-grid={{ x: 1, y: 2, w: 1, h: 2, static: true }}>
-                <Card>
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                            Recommendation 6
-                            </Typography>
-                            <Typography variant="h6" component="h2">
-                            Which cities have you been to that you did not like?
-                             </Typography>
-                        </CardContent>
-                    </Card>
-                </div>
-                <div key="7" data-grid={{ x: 2, y: 2, w: 1, h: 2, static: true }}>
-                <Card>
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                            Recommendation 7
-                            </Typography>
-                            <Typography variant="h6" component="h2">
-                                What's your favorite city
-                             </Typography>
-                            <Typography color="textSecondary">
-                                Paris
-                            </Typography>
-                            <Typography component="p">
-                            <br />
-                                {'"a benevolent smile"'}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </div>
-                <div key="8" data-grid={{ x: 3, y: 2, w: 1, h: 2, static: true }}>
-                <Card>
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                            Recommendation 8
-                            </Typography>
-                            <Typography variant="h6" component="h2">
-                                What's your favorite city
-                             </Typography>
-                            <Typography color="textSecondary">
-                                Paris
-                            </Typography>
-                            <Typography component="p">
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </div>
+                <Button color="primary" onClick={this.return}>
+                    Return
+                </Button>
             </ResponsiveReactGridLayout>
         );
     }

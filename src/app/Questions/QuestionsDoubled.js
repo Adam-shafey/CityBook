@@ -74,12 +74,17 @@ const ratingsRange = [
 ];
 
 class QuestionsDoubled extends React.Component {
-    state = {
+    constructor(props) {
+        super(props);
+
+
+    this.state = {
         Answer1:'', 
         Answer2:'', 
         Question1:this.props.Question1, 
         Question2:this.props.Question2
     };
+    }
 
     handleChange = name => event => {
         this.setState({

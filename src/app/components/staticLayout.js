@@ -42,8 +42,13 @@ class StaticLayout extends React.Component {
 
         this.onLayoutChange = this.onLayoutChange.bind(this);
         this.onBreakpointChange = this.onBreakpointChange.bind(this);
+        this.submit=this.submit.bind(this);
+
     }
 
+    submit(){
+        setTimeout(this.props.submitCallback(), 10000);
+    }
     // We're using the cols coming back from this to calculate where to add new items.
     onBreakpointChange(breakpoint, cols) {
         this.setState({
@@ -99,7 +104,7 @@ class StaticLayout extends React.Component {
                                 <Typography variant="h6" component="h2">
                                     How important is freedom of speech and racial tolerance?
                              </Typography>
-                                <QuestionsDoubled Question1="Freedom Of Speech" Question2="Racial Tolerance" />
+                                <QuestionsDoubled Question1="Freedom Of Speech" Question2="Racial Tolerance" ref={this.q1}/>
                             </CardContent>
                         </Card>
                     </div>
@@ -112,7 +117,7 @@ class StaticLayout extends React.Component {
                                 <Typography variant="h6" component="h2">
                                     How important is walkability and safety to you?
                              </Typography>
-                                <QuestionsDoubled Question1="Walkability" Question2="Safety" />
+                                <QuestionsDoubled Question1="Walkability" Question2="Safety" ref={this.q2}/>
                             </CardContent>
                         </Card>
                     </div>
@@ -125,7 +130,7 @@ class StaticLayout extends React.Component {
                                 <Typography variant="h6" component="h2">
                                     How important is Air Quality and traffic safety to you?
                              </Typography>
-                                <QuestionsDoubled Question1="Air Quality" Question2="Traffic Safety" />
+                                <QuestionsDoubled Question1="Air Quality" Question2="Traffic Safety" ref={this.q3}/>
                             </CardContent>
                         </Card>
                     </div>
@@ -164,7 +169,7 @@ class StaticLayout extends React.Component {
                                 <Typography variant="h6" component="h2">
                                     How important is Internet Speed and Night Life to you?
                              </Typography>
-                                <QuestionsDoubled Question1="Internet Speed" Question2="Night Life" />
+                                <QuestionsDoubled Question1="Internet Speed" Question2="Night Life" ref={this.q4}/>
                             </CardContent>
                         </Card>
                     </div>
@@ -177,13 +182,13 @@ class StaticLayout extends React.Component {
                                 <Typography variant="h6" component="h2">
                                     How important is local and lgbt friendliness?
                              </Typography>
-                                <QuestionsDoubled Question1="Local friendliness" Question2="Lgbt friendliness" />
+                                <QuestionsDoubled Question1="Local friendliness" Question2="Lgbt friendliness" ref={this.q5}/>
                             </CardContent>
                         </Card>
                     </div>
                 </ResponsiveReactGridLayout>
                 <div style={divStyle}>
-                <Button color="secondary" style={divStyle2}>
+                <Button color="secondary" style={divStyle2} onClick={this.submit}>
                     Submit
                 </Button>
                 </div>
